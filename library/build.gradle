@@ -1,18 +1,15 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: "com.jfrog.bintray"
 
-version = '1.0.0'
-group = 'com.magora-systems.android'
-archivesBaseName = 'material-toolbar-spinner'
-
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
     }
@@ -25,97 +22,13 @@ android {
     }
 }
 
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                groupId 'com.magora-systems.android'
-                artifactId 'material-toolbar-spinner'
-                version android.defaultConfig.versionName
-
-                name 'Material Toolbar Spinner'
-                description 'A wrapper for for a Spinner to show it in the Toolbar in material style uniformly among Android versions'
-                url 'https://github.com/Magora-Android/material-toolbar-spinner'
-
-                licenses {
-                    license {
-                        name 'MIT'
-                        url 'https://raw.githubusercontent.com/Magora-Android/material-toolbar-spinner/master/LICENSE'
-                    }
-                }
-
-                developers {
-                    developer {
-                        name 'Stanislav Borzenko'
-                        email 'borzenko@magora.systems'
-                    }
-                }
-
-                organization {
-                    name "Magora Systems"
-                    url "http://magora-systems.com/"
-                }
-
-                scm {
-                    connection 'https://github.com/Magora-Android/material-toolbar-spinner.git'
-                    developerConnection 'https://github.com/Magora-Android/material-toolbar-spinner.git'
-                    url 'https://github.com/Magora-Android/material-toolbar-spinner'
-
-                }
-            }
-        }
-    }
-}
-
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-bintray {
-    user = bintrayUser
-    key = bintrayApikey
-
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'material-toolbar-spinner'
-        desc = 'A wrapper for for a Spinner to show it in the Toolbar in material style uniformly among Android versions'
-        websiteUrl = 'https://github.com/Magora-Android/material-toolbar-spinner'
-        vcsUrl = 'https://github.com/Magora-Android/material-toolbar-spinner.git'
-        licenses = ['MIT']
-        publish = true
-        publicDownloadNumbers = true
-        version {
-            desc = 'A wrapper for for a Spinner to show it in the Toolbar in material style uniformly among Android versions'
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = bintrayGpgPassword
-                //Optional. The passphrase for GPG signing'
-            }
-        }
-    }
-}
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:27.0.2'
 
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

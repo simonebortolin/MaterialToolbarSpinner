@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/item_toolbar_triangle_margin"
         android:layout_marginStart="@dimen/item_toolbar_triangle_margin"
-        android:src="@drawable/spinner_triangle"
+        android:src="@drawable/ic_arrow_drop_down_white_24dp"
         android:tint="?colorControlNormal"
         tools:ignore="ContentDescription" />
 </LinearLayout>
