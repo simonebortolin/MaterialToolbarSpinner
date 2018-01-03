@@ -1,19 +1,34 @@
-# Material Toolbar Spinner #
+# MaterialToolbarSpinner
+[![](https://jitpack.io/v/simonebortolin/MaterialToolbarSpinner.svg)](https://jitpack.io/#simonebortolin/MaterialToolbarSpinner)
+
+Android 3rd party library to make a ToolbarSpinner in a easy mode. With compatibility with pre-lollipop devices
 Small wrapper on Spinner, which let you easily add it to the Toolbar to look in material-style and equally on different Android versions
 
-![mts_lollipop_example.gif](https://cloud.githubusercontent.com/assets/4465288/17552468/afe2e34c-5f32-11e6-9245-72d45ac4624f.gif)
-![mts_pre_lollipop_example.gif](https://cloud.githubusercontent.com/assets/4465288/17552500/e5bada10-5f32-11e6-986c-f01266f307ec.gif)
+## Screenshots
+<a href="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_1.png"><img src="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_1.png" alt="" width="200px"></a>
+<a href="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_2.png"><img src="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_2.png" alt="" width="200px"></a>
+<a href="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_3.png"><img src="https://github.com/simonebortolin/MaterialToolbarSpinner/blob/master/image_3.png" alt="" width="200px"></a>
 
-# Setup #
+## Installation
 
-Add the following dependency to the `build.gradle` of the module:
-```groovy
-dependencies {
-    compile 'com.magora-systems.android:material-toolbar-spinner:1.0.0'
-}		
-```
+Step 1: Add this to your **root** build.gradle file (not your module build.gradle file):
 
-# Usage #
+    allprojects {
+      repositories {
+        ...
+        maven { url "https://jitpack.io" }
+      }
+    }
+
+
+Step 2: Add this to your module `build.gradle` file:
+
+    dependencies {
+      ...
+        compile 'com.github.simonebortolin:MaterialToolbarSpinner:0.1.0'
+    }
+
+## How to use this library
 
 It's needed to add `MaterialToolbarSpinner` view to the `Toolbar`:
 ```xml
@@ -24,88 +39,89 @@ It's needed to add `MaterialToolbarSpinner` view to the `Toolbar`:
     android:theme="@style/ThemeOverlay.SampleApp.Toolbar">
 
     <com.magorasystems.materialtoolbarspinner.MaterialToolbarSpinner
-        android:id="@+id/mts_model_name
+        android:id="@+id/materialToolbarSpinner"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>
 </android.support.v7.widget.Toolbar>
 ```
 
-And it's needed to set `ThemeOverlay.MTS.Toolbar` theme to the `Toolbar`.
-
-And beside that it's needed to set `toolbarSpinnerStyle` attribute in the Theme:
+And edit the styles.xml:
 ```xml
-<style name="Theme.SampleApp" parent="Theme.AppCompat.Light.NoActionBar">
-    ...
-    <item name="toolbarSpinnerStyle">@style/Widget.MTS.Spinner.Toolbar</item>
-</style>
+<resources>
+    <style name="SpinExam" parent="Theme.AppCompat.Light.NoActionBar">
+        ....
+
+        <item name="toolbarStyle">@style/Widget.SpinExam.Toolbar</item>
+        <item name="toolbarSpinnerStyle">@style/Widget.MTS.Spinner.Toolbar</item>
+    </style>
+
+    <style name="Widget.SpinExam.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="ThemeOverlay.SpinExam.Toolbar" parent="ThemeOverlay.MTS.Toolbar">
+        <item name="colorControlNormal">#fff</item>
+    </style>
+</resources>
 ```
 
-In code this view is used almost as usual `Spinner`:
-```java
-MaterialToolbarSpinner spinner = (MaterialToolbarSpinner) toolbar.findViewById(R.id.mts_model_name);
-ModelNameToolbarSpinnerAdapter spinnerAdapter = new ModelNameToolbarSpinnerAdapter(this);
-spinner.setAdapter(spinnerAdapter);
-spinner.setOnItemSelectedListener(this);
-```
+Kotlin
 
-It's only needed to extend adapter from the `MaterialToolbarSpinner.Adapter`, that have little bit different names for methods that it's needed to implement to create views for header and for dropdown:
-```java
-public class SampleToolbarSpinnerAdapter extends MaterialToolbarSpinner.Adapter {
-    @Override
-    public View getDownView(int position, View convertView, ViewGroup parent) {
-        ...
+    materialToolbarSpinner.adapter = object : MaterialToolbarSpinner.SimpleAdapter(this) {
+        override fun getItem(position: Int): MaterialToolbarSpinner.Item  = MaterialToolbarSpinner.Item(list[position])
+    
+        override fun getCount() = list.size
     }
-
-    @Override
-    public View getToolbarView(int position, View convertView, ViewGroup parent) {
-        ...
+    
+    materialToolbarSpinner.onClickListener = object : AdapterView.OnItemSelectedListener {
+    
+        override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+            textView.text = list[position]
+        }
+    
+        override fun onNothingSelected(adapterView: AdapterView<*>) {
+            Toast.makeText(this@MainActivity, "No item selected", Toast.LENGTH_SHORT).show()
+        }
     }
-}
-```
+    
+Java
+    
+    MaterialToolbarSpinner materialToolbarSpinner = findViewById(R.id.materialToolbarSpinner);
+    materialToolbarSpinner.setAdapter(new MaterialToolbarSpinner.SimpleAdapter(this) {
 
-In simple case it's convenient to use ready layouts for items:
-```java
-R.layout.item_mts_dropdown
-```
+        @Override
+        public int getCount() {
+            return list.length;
+        }
 
-```java
-R.layout.item_mts_toolbar
-```
+        @NotNull
+        @Override
+        public MaterialToolbarSpinner.Item getItem(int position) {
+            return new MaterialToolbarSpinner.Item(list[position]);
+        }
+    });
 
-In case of using custom layouts it's possible to use the following text styles:
-```xml
-TextAppearance.MTS.Spinner.Dropdown
-```
+    materialToolbarSpinner.setOnClickListener(new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            textView.text = list[position];
+        }
 
-```xml
-TextAppearance.MTS.Spinner.Header
-```
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            Toast.makeText(MainActivity.this, "No item selected", Toast.LENGTH_SHORT).show();
+        }
+    });
 
-## Theme Customization ##
+If you want more customization, you can directly implement the adapter from the MaterialToolbarSpinner.Adapter class.
+  
+## Credits
 
-The color of the triangle and the text followed by the triangle are defined by `colorControlNormal` attribute of `Toolbar`'s theme:
-```xml
-<style name="ThemeOverlay.SpinExam.Toolbar" parent="ThemeOverlay.MTS.Toolbar">
-    <item name="colorControlNormal">#fffb00</item>
-</style>
-```
 
-And it's important to notice that color of the text will change only if the following style is used:
-```xml
-TextAppearance.MTS.Spinner.Header
-```
+I thank all the authors of the various commits that I have included in my fork
 
-This style is used in this layout by default:
-```java
-R.layout.item_mts_toolbar
-```
-which you can use for the header view when creating adapter (read above).
 
-If you use your own style for a text, it's convenient to set the color of a text to be equal to `colorControlNormal` attribute:
-```xml
-<item name="android:textColor">?colorControlNormal</item>
-```
-#License (MIT)#
+## License
 
     Copyright (c) 2016 Magora Systems
     

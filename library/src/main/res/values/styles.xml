@@ -11,7 +11,7 @@
     <style name="Widget.MTS.Spinner.Toolbar" parent="Base.Widget.MTS.Spinner.Toolbar"/>
 
     <style name="ThemeOverlay.MTS.Toolbar" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:colorBackground">#fff</item>
     </style>
 
     <style name="TextAppearance.MTS.Spinner.Header" parent="TextAppearance.AppCompat.Medium">

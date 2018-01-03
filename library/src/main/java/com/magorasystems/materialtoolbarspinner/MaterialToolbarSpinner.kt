@@ -8,15 +8,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
-
+import android.widget.*
 import com.magorasystems.materialtoolbarspinner.util.AndroidUtils
-import android.view.WindowManager
-
 
 
 /**
@@ -100,6 +93,8 @@ class MaterialToolbarSpinner : LinearLayout {
                                 ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.MATCH_PARENT))
 
+
+                //AndroidUtils.setViewWidth(itemContainer, 200)
                 view = itemContainer
             } else {
                 val realConvertView = (convertView as LinearLayout).getChildAt(0)
@@ -115,6 +110,9 @@ class MaterialToolbarSpinner : LinearLayout {
             var convertView = convertView
             if (convertView == null) {
                 convertView = getDownView(position, null, parent)
+
+                //AndroidUtils.setViewWidth(convertView, 200)
+
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     convertView.setBackgroundResource(
@@ -145,6 +143,8 @@ class MaterialToolbarSpinner : LinearLayout {
                         R.layout.mts_dropdown_item, parent, false)
                 viewHolder = ViewHolder(convertView)
                 convertView.tag = viewHolder
+
+
             } else {
                 viewHolder = convertView.tag as ViewHolder
             }
@@ -163,6 +163,11 @@ class MaterialToolbarSpinner : LinearLayout {
                         R.layout.mts_tooltbar_item, parent, false)
                 viewHolder = ViewHolder(convertView)
                 convertView.tag = viewHolder
+                convertView.post {
+                    val parentWidth = parent.width
+                    val width = convertView.width
+                    if (width == parentWidth) AndroidUtils.setViewWidth(convertView, width - AndroidUtils.convertDpToPx(convertView.context, 30))
+                }
             } else {
                 viewHolder = convertView.tag as ViewHolder
             }

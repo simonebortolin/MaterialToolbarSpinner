@@ -2,11 +2,13 @@ package com.sborzenko.materialtoolbarspinner
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import com.magorasystems.materialtoolbarspinner.MaterialToolbarSpinner
 import kotlinx.android.synthetic.main.main_activity.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             actionBar.setDisplayShowTitleEnabled(false)
         }
 
-        val list = listOf("Element 1", "Element 2", "Element 3", "Element 4", "Element very long Element very long Element very long Element very long")
+        val list = listOf("Element 1", "Element 2", "Element 3", "Element 4", "Element very long: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec.")
         materialToolbarSpinner.adapter = object : MaterialToolbarSpinner.SimpleAdapter(this) {
             override fun getItem(position: Int): MaterialToolbarSpinner.Item  = MaterialToolbarSpinner.Item(list[position])
 
@@ -38,8 +40,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "No item selected", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
-
-
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 }

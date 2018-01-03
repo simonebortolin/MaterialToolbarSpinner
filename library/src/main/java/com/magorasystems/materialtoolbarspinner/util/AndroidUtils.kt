@@ -1,12 +1,11 @@
 package com.magorasystems.materialtoolbarspinner.util
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.support.annotation.DrawableRes
+import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
-
 import com.magorasystems.materialtoolbarspinner.R
+
 
 /**
  * Created at Magora Systems (http://magora-systems.com) on 20.07.16
@@ -23,4 +22,12 @@ object AndroidUtils {
 
         return backgroundResource
     }
+
+    fun setViewWidth(view: View, width: Int) {
+        val layoutParams = view.layoutParams
+        layoutParams.width = width
+        view.layoutParams = layoutParams
+    }
+
+    fun convertDpToPx(context: Context, dp: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
 }
