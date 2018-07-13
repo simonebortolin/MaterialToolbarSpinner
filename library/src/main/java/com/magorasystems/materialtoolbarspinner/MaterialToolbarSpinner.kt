@@ -79,16 +79,16 @@ class MaterialToolbarSpinner : LinearLayout {
                 position: Int, convertView: View?, parent: ViewGroup): View
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
+            var myConvertView = convertView
             val view: View
-            if (convertView == null) {
-                convertView = getToolbarView(position, null, parent)
+            if (myConvertView == null) {
+                myConvertView = getToolbarView(position, null, parent)
 
                 val itemContainer = LayoutInflater
                         .from(parent.context)
                         .inflate(R.layout.mts,
                                 parent, false) as LinearLayout
-                itemContainer.addView(convertView, 0,
+                itemContainer.addView(myConvertView, 0,
                         LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.MATCH_PARENT))
@@ -97,9 +97,9 @@ class MaterialToolbarSpinner : LinearLayout {
                 //AndroidUtils.setViewWidth(itemContainer, 200)
                 view = itemContainer
             } else {
-                val realConvertView = (convertView as LinearLayout).getChildAt(0)
+                val realConvertView = (myConvertView as LinearLayout).getChildAt(0)
                 getToolbarView(position, realConvertView, parent)
-                view = convertView
+                view = myConvertView
             }
 
             return view
@@ -107,23 +107,23 @@ class MaterialToolbarSpinner : LinearLayout {
 
         override fun getDropDownView(position: Int,
                                      convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
-            if (convertView == null) {
-                convertView = getDownView(position, null, parent)
+            var myConvertView = convertView
+            if (myConvertView == null) {
+                myConvertView = getDownView(position, null, parent)
 
                 //AndroidUtils.setViewWidth(convertView, 200)
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    convertView.setBackgroundResource(
+                    myConvertView.setBackgroundResource(
                             AndroidUtils.getSelectableItemBackground(
-                                    convertView.context))
+                                    myConvertView.context))
                 }
             } else {
-                convertView = getDownView(position, convertView, parent)
+                myConvertView = getDownView(position, myConvertView, parent)
             }
 
-            return convertView
+            return myConvertView
         }
     }
 
@@ -136,46 +136,46 @@ class MaterialToolbarSpinner : LinearLayout {
 
         override fun getDownView(position: Int,
                                  convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
+            var myConvertView = convertView
             val viewHolder: ViewHolder
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(
+            if (myConvertView == null) {
+                myConvertView = LayoutInflater.from(context).inflate(
                         R.layout.mts_dropdown_item, parent, false)
-                viewHolder = ViewHolder(convertView)
-                convertView.tag = viewHolder
+                viewHolder = ViewHolder(myConvertView)
+                myConvertView.tag = viewHolder
 
 
             } else {
-                viewHolder = convertView.tag as ViewHolder
+                viewHolder = myConvertView.tag as ViewHolder
             }
 
             val item = getItem(position)
             viewHolder.textView.text = item.text
 
-            return convertView!!
+            return myConvertView!!
         }
 
         override fun getToolbarView(position: Int, convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
+            var myConvertView = convertView
             val viewHolder: ViewHolder
-            if (convertView == null) {
-                convertView = LayoutInflater.from(parent.context).inflate(
+            if (myConvertView == null) {
+                myConvertView = LayoutInflater.from(parent.context).inflate(
                         R.layout.mts_tooltbar_item, parent, false)
-                viewHolder = ViewHolder(convertView)
-                convertView.tag = viewHolder
-                convertView.post {
+                viewHolder = ViewHolder(myConvertView)
+                myConvertView.tag = viewHolder
+                myConvertView.post {
                     val parentWidth = parent.width
-                    val width = convertView.width
-                    if (width == parentWidth) AndroidUtils.setViewWidth(convertView, width - AndroidUtils.convertDpToPx(convertView.context, 30))
+                    val width = myConvertView.width
+                    if (width == parentWidth) AndroidUtils.setViewWidth(myConvertView, width - AndroidUtils.convertDpToPx(myConvertView.context, 30))
                 }
             } else {
-                viewHolder = convertView.tag as ViewHolder
+                viewHolder = myConvertView.tag as ViewHolder
             }
 
             val item = getItem(position)
             viewHolder.textView.text = item.text
 
-            return convertView!!
+            return myConvertView!!
         }
     }
 }

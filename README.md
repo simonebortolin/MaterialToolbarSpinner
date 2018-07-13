@@ -25,7 +25,7 @@ Step 2: Add this to your module `build.gradle` file:
 
     dependencies {
       ...
-        compile 'com.github.simonebortolin:MaterialToolbarSpinner:0.1.0'
+        compile 'com.github.simonebortolin:MaterialToolbarSpinner:0.2'
     }
 
 ## How to use this library
