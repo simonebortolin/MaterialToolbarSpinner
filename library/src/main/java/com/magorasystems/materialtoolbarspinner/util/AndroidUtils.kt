@@ -1,7 +1,7 @@
 package com.magorasystems.materialtoolbarspinner.util
 
 import android.content.Context
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import android.util.TypedValue
 import android.view.View
 import com.magorasystems.materialtoolbarspinner.R

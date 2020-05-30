@@ -2,7 +2,7 @@ package com.magorasystems.materialtoolbarspinner
 
 import android.content.Context
 import android.os.Build
-import android.support.v7.widget.AppCompatSpinner
+import androidx.appcompat.widget.AppCompatSpinner
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
