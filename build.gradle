@@ -28,7 +28,7 @@ subprojects {
     ext.androidCompileSdkVersion = 29
     ext.androidMinSdkVersion = 15
     ext.androidTargetSdkVersion = 29
-    ext.versionName = "1.2.0"
+    ext.versionName = "1.0.0"
     ext.versionCode = 12
     ext.buildToolsVersion = '29.0.3'
 }

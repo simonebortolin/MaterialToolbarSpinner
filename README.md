@@ -25,7 +25,7 @@ Step 2: Add this to your module `build.gradle` file:
 
     dependencies {
       ...
-        compile 'com.github.simonebortolin:MaterialToolbarSpinner:0.2'
+        compile 'com.github.simonebortolin:MaterialToolbarSpinner:1.0.0'
     }
 
 ## How to use this library
@@ -124,6 +124,7 @@ I thank all the authors of the various commits that I have included in my fork
 ## License
 
     Copyright (c) 2016 Magora Systems
+    Copyright (c) 2018-2020 Simone Bortolin
     
     Permission is hereby granted, free of charge, to any person obtaining a copy 
     of this software and associated documentation files (the "Software"), to deal 
